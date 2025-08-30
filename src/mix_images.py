@@ -34,6 +34,8 @@ def remix_images(
         response_modalities=["IMAGE", "TEXT"],
     )
 
+    print(f"Remixing with {len(image_paths)} images and prompt: {prompt}")
+
     stream = client.models.generate_content_stream(
         model=MODEL_NAME,
         contents=contents,
@@ -98,19 +100,18 @@ def _get_mime_type(file_path: str) -> str:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Remix two images using Google Generative AI."
+        description="Remix images using Google Generative AI."
     )
     parser.add_argument(
         "-i",
         "--image",
         action="append",
         required=True,
-        help="Path to an input image (provide two).",
+        help="Paths to input images (1-5 images). Provide multiple -i flags for multiple images.",
     )
     parser.add_argument(
         "--prompt",
         type=str,
-        default="Combine these two images in a way that makes sense.",
         help="Optional prompt for remixing the images.",
     )
     parser.add_argument(
@@ -122,16 +123,27 @@ def main():
 
     args = parser.parse_args()
 
-    if len(args.image) != 2:
-        parser.error("Please provide exactly two input images using the -i flag.")
+    all_image_paths = args.image
+
+    num_images = len(all_image_paths)
+    if not (1 <= num_images <= 5):
+        parser.error("Please provide between 1 and 5 input images using the -i flag.")
+
+    # Determine the prompt
+    final_prompt = args.prompt
+    if final_prompt is None:
+        if num_images == 1:
+            final_prompt = "Turn this image into a professional quality studio shoot with better lighting and depth of field."
+        else:
+            final_prompt = "Combine the subjects of these images in a natural way, producing a new image."
 
     # Ensure output directory exists
     output_dir = args.output_dir
     os.makedirs(output_dir, exist_ok=True)
 
     remix_images(
-        image_paths=args.image,
-        prompt=args.prompt,
+        image_paths=all_image_paths,
+        prompt=final_prompt,
         output_dir=output_dir,
     )
 
