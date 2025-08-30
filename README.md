@@ -1,29 +1,49 @@
-# Python Tutorial [Template]
+# Nano Banana Python - Image Mixer
 
-This is a Python tutorial project template. The first paragraph should describe what the project does.
+This project demonstrates how to remix two images using Google Generative AI.
 
-## Setting Up
+## Setup
 
-Instructions on how to install requirements, and what setup is needed.
+1.  **Clone the repository:**
 
-```sh
-pip install -r requirements.txt
+    ```bash
+    git clone <repository_url>
+    cd nano-banana-python
+    ```
+
+2.  **Install dependencies using `uv`:**
+
+    ```bash
+    uv sync
+    ```
+
+3.  **Set your Google Gemini API Key:**
+    Ensure you have your `GEMINI_API_KEY` or `GOOGLE_API_KEY` set as an environment variable.
+
+    ```bash
+    export GEMINI_API_KEY="YOUR_API_KEY"
+    # OR
+    export GOOGLE_API_KEY="YOUR_API_KEY"
+    ```
+
+## Usage
+
+Run the `mix_images.py` script with two input images and an optional prompt. The remixed image will be saved in the `output` directory (or a custom directory if specified).
+
+### Example 1: Basic Remix
+
+```bash
+uv run python src/mix_images.py -i images/jacket.png -i images/person.png
 ```
 
-Include any environment variable setup, API keys, etc.
+### Example 2: Futuristic Cyberpunk Scene
 
-## How To Run
-
-Instructions on how to run this in the CLI.
-
-```sh
-uv run python src/main.py
+```bash
+uv run python src/mix_images.py -i images/jacket.png -i images/person.png --prompt "Remix these two images into a futuristic cyberpunk scene."
 ```
 
-## Configuration
+### Example 3: Specify Output Directory
 
-Notes on how to configure the project (constants, etc).
-
-## Architecture
-
-More interesting details on architecture and design choices of this project.
+```bash
+uv run python src/mix_images.py -i images/jacket.png -i images/person.png --prompt "Remix these two images." --output-dir my_custom_output
+```
