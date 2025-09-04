@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+API_README.md
+*.md
+
+# Frontend example (not needed for API)
+frontend_example.html
+
+# Output files (will be generated at runtime)
+output/*.png
+output/*.jpg
+output/*.jpeg
+
+# Test files
+tests/
+pytest_cache/
+.coverage
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local

@@ -1,59 +1,59 @@
-# Nano Banana Python - Image Mixer
+# Glasses Overlay - Add Glasses to Any Image
 
-This project demonstrates how to remix 1 to 5 images using Google Generative AI.
+This project uses Google's Gemini AI to automatically add glasses to any person in an image from a URL.
 
 ## Setup
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
+   ```bash
+   git clone <repository_url>
+   cd nano-banana-python
+   ```
 
-    ```bash
-    git clone <repository_url>
-    cd nano-banana-python
-    ```
+2. **Install dependencies using `uv`:**
+   ```bash
+   uv sync
+   ```
 
-2.  **Install dependencies using `uv`:**
-
-    ```bash
-    uv sync
-    ```
-
-3.  **Set your Google Gemini API Key:**
-    Ensure you have your `GEMINI_API_KEY` or `GOOGLE_API_KEY` set as an environment variable.
-
-    ```bash
-    export GEMINI_API_KEY="YOUR_API_KEY"
-    # OR
-    export GOOGLE_API_KEY="YOUR_API_KEY"
-    ```
+   Note: The Gemini API key is already configured in the code, no need to set it up!
 
 ## Usage
 
-Run the `mix_images.py` script with 1 to 5 input images and an optional prompt. The remixed image(s) will be saved in the `output` directory (or a custom directory if specified).
+The script takes an image URL and adds the glasses.png overlay to the person in the image.
 
--   If one image is provided without a prompt, the default prompt will be to "Turn this image into a professional quality studio shoot with better lighting and depth of field.".
--   If multiple images are provided without a prompt, the default prompt will be to "Combine these images in a way that makes sense.".
--   If a prompt is explicitly provided, it will always be used.
-
-### Example 1: Improve a single image (default prompt)
+### Basic Usage
 
 ```bash
-uv run python src/mix_images.py -i images/man.jpeg
+uv run python src/mix_images.py --url "IMAGE_URL_HERE"
 ```
 
-### Example 2: Combine two images (default prompt)
+### Example with a real image URL
 
 ```bash
-uv run python src/mix_images.py -i images/man.jpeg -i images/cap.jpeg
+# Add glasses to any portrait image
+uv run python src/mix_images.py --url "https://example.com/person.jpg"
 ```
 
-### Example 3: Combine multiple images with a custom prompt
+### Custom output directory
 
 ```bash
-uv run python src/mix_images.py -i images/man.jpeg -i images/cap.jpeg -i images/soda.jpeg --prompt "Create a product advertisement with the man, cap, and soda."
+uv run python src/mix_images.py --url "IMAGE_URL" --output-dir my_output
 ```
 
-### Example 4: Specify Output Directory
+## How it works
 
-```bash
-uv run python src/mix_images.py -i images/man.jpeg -i images/cap.jpeg --prompt "Remix these two images." --output-dir my_custom_output
-```
+1. The script downloads the image from the provided URL
+2. Sends both the downloaded image and glasses.png to Gemini AI
+3. Gemini intelligently places the glasses on the person's face
+4. Saves the result in the output directory
+
+## Output
+
+The processed image will be saved in the `output` directory with a filename like:
+- `with_glasses_[timestamp]_0.png`
+
+## Requirements
+
+- Python 3.10+
+- Internet connection to download images and use the API
+- (API key is already included in the code)
