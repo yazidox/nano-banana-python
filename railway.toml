@@ -1,0 +1,17 @@
+[build]
+builder = "dockerfile"
+
+[deploy]
+numReplicas = 1
+
+[[services]]
+name = "web"
+port = 8000
+
+[services.web.healthcheck]
+path = "/health"
+interval = 30
+
+# Environment variables
+[env]
+RAILWAY_PUBLIC_DOMAIN = "nano-banana-python-production.up.railway.app"

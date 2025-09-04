@@ -89,10 +89,20 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
         )
         
         # Add the prompt
-        prompt = """Take the first image (the person) and add the glasses from the second image onto their face. 
-        The glasses should be positioned naturally where glasses would normally sit on a person's face. 
-        Maintain the exact same style and appearance of the glasses from the second image.
-        Keep everything else about the person and background exactly the same, just add the glasses."""
+        prompt = """IMPORTANT: Generate the FULL image with the EXACT same dimensions as the original input image.
+        
+        Take the first image and add the glasses from the second image onto the person's face.
+        
+        CRITICAL REQUIREMENTS:
+        1. PRESERVE THE ENTIRE IMAGE - include the full body, not just the face or upper portion
+        2. Keep the EXACT same image dimensions and aspect ratio as the original
+        3. Include EVERYTHING from the original image - the complete person (head to toe if visible), all background elements, and surroundings
+        4. The glasses should be positioned naturally where glasses would normally sit on a person's face
+        5. Maintain the exact same style and appearance of the glasses from the second image
+        6. DO NOT crop, zoom in, or focus only on the face/upper body
+        7. The output must show the COMPLETE original scene with glasses added
+        
+        The only change should be adding the glasses - everything else must remain exactly as it was in the full original image."""
         
         contents.append(genai.types.Part.from_text(text=prompt))
         
