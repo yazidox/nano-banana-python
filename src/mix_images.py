@@ -58,20 +58,57 @@ def add_glasses_to_image(
         )
         
         # Add the prompt
-        prompt = """IMPORTANT: Generate the FULL image with the EXACT same dimensions as the original input image.
+        prompt = """⚠️ CRITICAL: DO NOT CROP THE IMAGE! The output MUST have the EXACT SAME dimensions as the input image!
         
-        Take the first image and add the glasses from the second image onto the person's face.
+        Task: Add the glasses from the second image onto the person's face in the first image.
         
-        CRITICAL REQUIREMENTS:
-        1. PRESERVE THE ENTIRE IMAGE - include the full body, not just the face or upper portion
-        2. Keep the EXACT same image dimensions and aspect ratio as the original
-        3. Include EVERYTHING from the original image - the complete person (head to toe if visible), all background elements, and surroundings
-        4. The glasses should be positioned naturally where glasses would normally sit on a person's face
-        5. Maintain the exact same style and appearance of the glasses from the second image
-        6. DO NOT crop, zoom in, or focus only on the face/upper body
-        7. The output must show the COMPLETE original scene with glasses added
+        🚨 ABSOLUTE REQUIREMENTS - FAILURE TO FOLLOW WILL RESULT IN REJECTION:
         
-        The only change should be adding the glasses - everything else must remain exactly as it was in the full original image."""
+        1. ⛔ NO CROPPING ALLOWED:
+           - The output image MUST be the EXACT same size (width x height) as the input image
+           - If the input shows a full body, the output MUST show the full body
+           - If the input shows a person from head to waist, output MUST show head to waist
+           - NEVER zoom in on just the face or upper portion
+           - NEVER cut off any part of the original image
+           - Keep ALL edges and borders exactly as they were
+        
+        2. FULL IMAGE PRESERVATION:
+           - Include 100% of the original image content
+           - Keep the ENTIRE background visible
+           - Maintain ALL surrounding elements
+           - Preserve the COMPLETE scene from edge to edge
+           - The person should appear at the SAME size and position as in the original
+        
+        3. GLASSES REQUIREMENTS:
+           - Size the glasses proportionally to fit the face naturally
+           - The glasses width should span from temple to temple
+           - Center the glasses on the face horizontally
+           - Position at proper eye level with both eyes visible through lenses
+           - Keep the exact style and appearance of the provided glasses
+        
+        👁️ MOST IMPORTANT - EYE VISIBILITY & POSITIONING:
+           - BOTH EYES MUST BE CLEARLY VISIBLE IN THE CENTER OF THE GLASSES LENSES
+           - The eyes should look through the CENTER of each lens, not near the edges
+           - The glasses frames/borders MUST NOT hide or cover any part of the eyes
+           - The eyes should be fully visible and unobstructed by the glasses frames
+           - Position glasses so the pupils align with the center of each lens
+           - Ensure the glasses bridge sits on the nose without blocking the eyes
+           
+           NATURAL SPACING - CRITICAL:
+           - The top frame of the glasses should sit SLIGHTLY ABOVE the eyebrows
+           - There should be a small natural gap between the eyes and the lens
+           - The glasses should NOT sit too close or touch the eyes/eyelashes
+           - Position the glasses as if they're resting naturally on the nose bridge
+           - The bottom of the lenses should be positioned just below the lower eyelid
+           - Maintain realistic distance as if the person is actually wearing glasses comfortably
+        
+        4. OUTPUT VERIFICATION:
+           - The output dimensions MUST match input dimensions EXACTLY
+           - If input is 1920x1080, output MUST be 1920x1080
+           - If input is 800x1200, output MUST be 800x1200
+           - The entire original composition must be preserved
+        
+        ⚠️ REMEMBER: The ONLY change should be adding glasses. EVERYTHING else including image dimensions, zoom level, framing, and visible content MUST remain EXACTLY the same as the original full image!"""
         
         contents.append(genai.types.Part.from_text(text=prompt))
         
