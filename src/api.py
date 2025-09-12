@@ -91,6 +91,22 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
         # Add the prompt
         prompt = """TASK: Add glasses from the second image to the person's face in the first image.
         
+        🔴🔴🔴 EXTREMELY CRITICAL - VERY VERY VERY VERY HIGH IMPORTANCE 🔴🔴🔴
+        ⚠️ NEVER CHANGE THE GLASSES SHAPE OR COLORS - THIS IS ABSOLUTELY CRITICAL! ⚠️
+        
+        GLASSES PRESERVATION - ULTIMATE PRIORITY:
+        • DO NOT CHANGE THE SHAPE OF THE GLASSES - KEEP EXACT ORIGINAL SHAPE
+        • DO NOT ROUND THE GLASSES IF THEY ARE RECTANGULAR
+        • DO NOT MAKE THEM RECTANGULAR IF THEY ARE ROUND
+        • DO NOT ALTER ANY CURVES, ANGLES, OR GEOMETRY
+        • DO NOT CHANGE THE COLOR - KEEP EXACT ORIGINAL COLORS
+        • DO NOT MODIFY THE FRAME THICKNESS
+        • DO NOT ALTER THE LENS TINT OR TRANSPARENCY
+        • USE THE GLASSES EXACTLY AS THEY APPEAR IN THE SECOND IMAGE
+        • The glasses must be IDENTICAL to the input - just positioned on the face
+        
+        IF YOU CHANGE THE GLASSES SHAPE OR COLOR, THE OUTPUT WILL BE REJECTED!
+        
         🎯 EXACT GLASSES POSITIONING INSTRUCTIONS:
         
         1. VERTICAL POSITIONING (TOP TO BOTTOM):
@@ -132,6 +148,14 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
         - Eyes look through the upper-center area of the lenses
         - There's natural space between eyes and lenses
         - The frames follow the natural contours of the face
+        
+        🔴 FINAL CRITICAL REMINDER 🔴
+        THE GLASSES MUST BE EXACTLY THE SAME AS PROVIDED:
+        - SAME EXACT SHAPE (if rectangular, keep rectangular; if round, keep round)
+        - SAME EXACT COLOR (no color changes whatsoever)
+        - SAME EXACT STYLE (no stylistic modifications)
+        - SAME EXACT FRAME DESIGN (no alterations to frame)
+        - Just position them correctly on the face WITHOUT changing their appearance!
         
         USE THE EXACT GLASSES FROM THE SECOND IMAGE WITHOUT ANY MODIFICATIONS."""
         
