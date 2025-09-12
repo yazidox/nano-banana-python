@@ -89,57 +89,51 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
         )
         
         # Add the prompt
-        prompt = """⚠️ CRITICAL: DO NOT CROP THE IMAGE! The output MUST have the EXACT SAME dimensions as the input image!
+        prompt = """TASK: Add glasses from the second image to the person's face in the first image.
         
-        Task: Add the glasses from the second image onto the person's face in the first image.
+        🎯 EXACT GLASSES POSITIONING INSTRUCTIONS:
         
-        🚨 ABSOLUTE REQUIREMENTS - FAILURE TO FOLLOW WILL RESULT IN REJECTION:
+        1. VERTICAL POSITIONING (TOP TO BOTTOM):
+           • TOP of glasses frame: Should align with or sit JUST ABOVE the eyebrows (about 5-10mm above)
+           • EYES: Should be visible through the UPPER-MIDDLE portion of each lens
+           • PUPIL HEIGHT: Pupils should be at approximately 60-70% height of the lens (closer to top than bottom)
+           • BOTTOM of glasses: Should extend to about mid-cheek level
+           • The glasses should NOT sit too high (covering forehead) or too low (covering nose tip)
         
-        1. ⛔ NO CROPPING ALLOWED:
-           - The output image MUST be the EXACT same size (width x height) as the input image
-           - If the input shows a full body, the output MUST show the full body
-           - If the input shows a person from head to waist, output MUST show head to waist
-           - NEVER zoom in on just the face or upper portion
-           - NEVER cut off any part of the original image
-           - Keep ALL edges and borders exactly as they were
+        2. HORIZONTAL POSITIONING (LEFT TO RIGHT):
+           • CENTER the glasses perfectly on the face
+           • Each eye should be centered in its respective lens
+           • The bridge should rest on the upper part of the nose bridge
+           • Temple arms should extend naturally toward the ears
+           • Width should match the face width at temple level
         
-        2. FULL IMAGE PRESERVATION:
-           - Include 100% of the original image content
-           - Keep the ENTIRE background visible
-           - Maintain ALL surrounding elements
-           - Preserve the COMPLETE scene from edge to edge
-           - The person should appear at the SAME size and position as in the original
+        3. DEPTH & DISTANCE:
+           • Glasses should appear to be sitting AWAY from the face (not painted on)
+           • There should be visible space between the lenses and the eyes
+           • The glasses should look like they're resting on the nose, not pressed against the face
         
-        3. GLASSES REQUIREMENTS:
-           - Size the glasses proportionally to fit the face naturally
-           - The glasses width should span from temple to temple
-           - Center the glasses on the face horizontally
-           - Position at proper eye level with both eyes visible through lenses
-           - Keep the exact style and appearance of the provided glasses
+        4. ⛔ COMMON MISTAKES TO AVOID:
+           • DO NOT place glasses too low (eyes should not be at bottom of lenses)
+           • DO NOT place glasses too high (eyes should not be at very top of lenses)
+           • DO NOT let frames cover or hide the eyes
+           • DO NOT make glasses too small or too large for the face
+           • DO NOT tilt or angle the glasses - keep them level
         
-        👁️ MOST IMPORTANT - EYE VISIBILITY & POSITIONING:
-           - BOTH EYES MUST BE CLEARLY VISIBLE IN THE CENTER OF THE GLASSES LENSES
-           - The eyes should look through the CENTER of each lens, not near the edges
-           - The glasses frames/borders MUST NOT hide or cover any part of the eyes
-           - The eyes should be fully visible and unobstructed by the glasses frames
-           - Position glasses so the pupils align with the center of each lens
-           - Ensure the glasses bridge sits on the nose without blocking the eyes
-           
-           NATURAL SPACING - CRITICAL:
-           - The top frame of the glasses should sit SLIGHTLY ABOVE the eyebrows
-           - There should be a small natural gap between the eyes and the lens
-           - The glasses should NOT sit too close or touch the eyes/eyelashes
-           - Position the glasses as if they're resting naturally on the nose bridge
-           - The bottom of the lenses should be positioned just below the lower eyelid
-           - Maintain realistic distance as if the person is actually wearing glasses comfortably
+        5. 📦 IMAGE PRESERVATION - CRITICAL:
+           • MAINTAIN EXACT SAME DIMENSIONS as input image
+           • DO NOT CROP any part of the original image
+           • Keep ALL background and body parts visible
+           • The ONLY change is adding glasses - nothing else
         
-        4. OUTPUT VERIFICATION:
-           - The output dimensions MUST match input dimensions EXACTLY
-           - If input is 1920x1080, output MUST be 1920x1080
-           - If input is 800x1200, output MUST be 800x1200
-           - The entire original composition must be preserved
+        REFERENCE GUIDE:
+        Think of how real glasses sit on a face:
+        - They rest on the nose bridge (upper part)
+        - The top frame is near but not covering the eyebrows
+        - Eyes look through the upper-center area of the lenses
+        - There's natural space between eyes and lenses
+        - The frames follow the natural contours of the face
         
-        ⚠️ REMEMBER: The ONLY change should be adding glasses. EVERYTHING else including image dimensions, zoom level, framing, and visible content MUST remain EXACTLY the same as the original full image!"""
+        USE THE EXACT GLASSES FROM THE SECOND IMAGE WITHOUT ANY MODIFICATIONS."""
         
         contents.append(genai.types.Part.from_text(text=prompt))
         
