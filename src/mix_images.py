@@ -74,7 +74,17 @@ def add_glasses_to_image(
         • USE THE GLASSES EXACTLY AS THEY APPEAR IN THE SECOND IMAGE
         • The glasses must be IDENTICAL to the input - just positioned on the face
         
+        ⛔ CRITICAL RULE - NEVER ADD EYES ⛔
+        • ONLY ADD GLASSES - NOTHING ELSE!
+        • DO NOT DRAW OR ADD EYES if they don't exist in the original image
+        • DO NOT CREATE EYES where there are none
+        • If eyes are closed, covered, or not visible - KEEP THEM THAT WAY
+        • If the person is looking away - DO NOT add eyes looking forward
+        • PRESERVE THE EXACT EYE STATE from the original image
+        • Your ONLY task is to add glasses, NOT to modify or add facial features
+        
         IF YOU CHANGE THE GLASSES SHAPE OR COLOR, THE OUTPUT WILL BE REJECTED!
+        IF YOU ADD OR DRAW EYES THAT DON'T EXIST, THE OUTPUT WILL BE REJECTED!
         
         🎯 EXACT GLASSES POSITIONING INSTRUCTIONS:
         
