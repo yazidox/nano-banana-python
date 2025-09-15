@@ -57,13 +57,32 @@ def add_glasses_to_image(
             types.Part(inline_data=types.Blob(data=glasses_data, mime_type=glasses_mime))
         )
         
-        # Add the prompt
-        prompt = """TASK: Add glasses from the second image to the person's face in the first image.
+        # Add the improved prompt for multi-face support and better overlay
+        prompt = """TASK: Add glasses from the second image to ALL FACES in the first image. If there are multiple people, add glasses to EACH person.
         
-        🔴🔴🔴 EXTREMELY CRITICAL - VERY VERY VERY VERY HIGH IMPORTANCE 🔴🔴🔴
+        🔴🔴🔴 MULTI-FACE DETECTION - EXTREMELY CRITICAL 🔴🔴🔴
+        • SCAN THE ENTIRE IMAGE for ALL human faces (front-facing, side profiles, partial faces)
+        • ADD GLASSES TO EVERY SINGLE FACE DETECTED
+        • DO NOT miss any faces - even if partially visible, in background, or at different angles
+        • If there are 2 people, both get glasses. If 3 people, all 3 get glasses. And so on.
+        • EACH FACE gets its own properly sized and positioned glasses
+        
+        🔴🔴🔴 GLASSES AS PERFECT OVERLAY - NO OBSTRUCTION 🔴🔴🔴
+        ⚠️ CRITICAL: Glasses must appear as a DIGITAL OVERLAY - like copy-pasting them on top ⚠️
+        
+        🎯 REALISTIC 3D GLASSES POSITIONING - NATURAL FACE CONFORMITY:
+        • The glasses must appear to REST NATURALLY on the face following 3D facial contours
+        • Glasses should CURVE and BEND naturally around the nose bridge and face shape
+        • The bridge should appear to rest ON TOP OF the nose bridge (not floating above it)
+        • Lenses should follow the natural curve of the eye sockets and cheekbones
+        • Temple arms should curve naturally around the sides of the head
+        • CRITICAL: While conforming to face shape, the glasses design must remain FULLY VISIBLE
+        • NO part of the nose should "cut through" or obstruct the glasses frame or lenses
+        
+        🔴🔴🔴 GLASSES PRESERVATION - ULTIMATE PRIORITY 🔴🔴🔴
         ⚠️ NEVER CHANGE THE GLASSES SHAPE OR COLORS - THIS IS ABSOLUTELY CRITICAL! ⚠️
         
-        GLASSES PRESERVATION - ULTIMATE PRIORITY:
+        GLASSES PRESERVATION RULES:
         • DO NOT CHANGE THE SHAPE OF THE GLASSES - KEEP EXACT ORIGINAL SHAPE
         • DO NOT ROUND THE GLASSES IF THEY ARE RECTANGULAR
         • DO NOT MAKE THEM RECTANGULAR IF THEY ARE ROUND
@@ -72,7 +91,7 @@ def add_glasses_to_image(
         • DO NOT MODIFY THE FRAME THICKNESS
         • DO NOT ALTER THE LENS TINT OR TRANSPARENCY
         • USE THE GLASSES EXACTLY AS THEY APPEAR IN THE SECOND IMAGE
-        • The glasses must be IDENTICAL to the input - just positioned on the face
+        • The glasses must be IDENTICAL to the input - just positioned on each face
         
         ⛔ CRITICAL RULE - NEVER ADD EYES ⛔
         • ONLY ADD GLASSES - NOTHING ELSE!
@@ -83,60 +102,78 @@ def add_glasses_to_image(
         • PRESERVE THE EXACT EYE STATE from the original image
         • Your ONLY task is to add glasses, NOT to modify or add facial features
         
-        IF YOU CHANGE THE GLASSES SHAPE OR COLOR, THE OUTPUT WILL BE REJECTED!
-        IF YOU ADD OR DRAW EYES THAT DON'T EXIST, THE OUTPUT WILL BE REJECTED!
+        🎯 PERFECT OVERLAY POSITIONING FOR EACH FACE:
         
-        🎯 EXACT GLASSES POSITIONING INSTRUCTIONS:
+        1. FACE DETECTION:
+           • Identify ALL faces in the image (front, profile, partial, background)
+           • For EACH face detected, apply the following positioning rules
         
-        1. VERTICAL POSITIONING (TOP TO BOTTOM):
-           • TOP of glasses frame: Should align with or sit JUST ABOVE the eyebrows (about 5-10mm above)
-           • EYES: Should be visible through the UPPER-MIDDLE portion of each lens
-           • PUPIL HEIGHT: Pupils should be at approximately 60-70% height of the lens (closer to top than bottom)
-           • BOTTOM of glasses: Should extend to about mid-cheek level
-           • The glasses should NOT sit too high (covering forehead) or too low (covering nose tip)
+        2. VERTICAL POSITIONING (TOP TO BOTTOM) - PER FACE:
+           • Position glasses to REST NATURALLY on the nose bridge and face
+           • TOP of glasses frame: Should align with natural eyebrow line
+           • BRIDGE: Should make contact with the nose bridge (upper part) naturally
+           • EYES: Should be visible through the CENTER portion of each lens
+           • BOTTOM of glasses: Should follow natural cheekbone curve
+           • Glasses should appear to be physically resting on the face with realistic depth
         
-        2. HORIZONTAL POSITIONING (LEFT TO RIGHT):
-           • CENTER the glasses perfectly on the face
+        3. HORIZONTAL POSITIONING (LEFT TO RIGHT) - PER FACE:
+           • CENTER the glasses perfectly on each face
            • Each eye should be centered in its respective lens
-           • The bridge should rest on the upper part of the nose bridge
-           • Temple arms should extend naturally toward the ears
-           • Width should match the face width at temple level
+           • Scale glasses appropriately for each face size
+           • Temple arms should extend toward ears naturally
         
-        3. DEPTH & DISTANCE:
-           • Glasses should appear to be sitting AWAY from the face (not painted on)
-           • There should be visible space between the lenses and the eyes
-           • The glasses should look like they're resting on the nose, not pressed against the face
+        4. REALISTIC 3D EFFECT - CRITICAL:
+           • Glasses must appear to REST NATURALLY on the face with realistic depth
+           • Glasses should CONFORM to the 3D shape of the face (curve around nose, follow eye sockets)
+           • The bridge should appear to sit ON the nose bridge with natural contact
+           • Lenses should curve slightly to match the face's natural contours
+           • Think "real glasses that someone is actually wearing" not a flat sticker
+           • Add subtle shadows and depth to show natural interaction with facial features
+           • IMPORTANT: Despite conforming to face shape, the glasses design must remain completely visible
         
-        4. ⛔ COMMON MISTAKES TO AVOID:
-           • DO NOT place glasses too low (eyes should not be at bottom of lenses)
-           • DO NOT place glasses too high (eyes should not be at very top of lenses)
-           • DO NOT let frames cover or hide the eyes
-           • DO NOT make glasses too small or too large for the face
-           • DO NOT tilt or angle the glasses - keep them level
+        5. SCALING FOR MULTIPLE FACES:
+           • Each face gets appropriately sized glasses based on that face's dimensions
+           • Larger faces = larger glasses, smaller faces = smaller glasses
+           • Maintain the same proportional relationship for all faces
         
-        5. 📦 IMAGE PRESERVATION - CRITICAL:
+        6. ⛔ COMMON MISTAKES TO AVOID:
+           • DO NOT make glasses appear to "float" above the nose - they should rest on it
+           • DO NOT make glasses completely flat - they should curve with facial contours
+           • DO NOT let nose "cut through" the glasses frame or lenses
+           • DO NOT make glasses look "painted on" - add realistic depth and shadows
+           • DO NOT miss any faces in the image
+           • DO NOT make glasses too small or too large for any face
+           • DO NOT ignore the 3D shape of the face - glasses should conform naturally
+        
+        7. 📦 IMAGE PRESERVATION - CRITICAL:
            • MAINTAIN EXACT SAME DIMENSIONS as input image
            • DO NOT CROP any part of the original image
            • Keep ALL background and body parts visible
-           • The ONLY change is adding glasses - nothing else
+           • The ONLY change is adding glasses to all faces - nothing else
         
-        REFERENCE GUIDE:
-        Think of how real glasses sit on a face:
-        - They rest on the nose bridge (upper part)
-        - The top frame is near but not covering the eyebrows
-        - Eyes look through the upper-center area of the lenses
-        - There's natural space between eyes and lenses
-        - The frames follow the natural contours of the face
+        🎯 REALISTIC 3D VISUALIZATION GUIDE:
+        Think of this like real glasses that someone is actually wearing:
+        - The glasses rest naturally on the nose bridge and ears
+        - The frame curves and conforms to the 3D shape of the face
+        - The bridge makes natural contact with the nose without being obstructed by it
+        - Lenses follow the natural curve of the eye area and cheekbones
+        - Temple arms curve naturally around the head shape
+        - The glasses cast subtle, realistic shadows on the face
+        - Despite the realistic fit, the complete glasses design remains fully visible
+        - Each face gets its own perfectly fitted, naturally positioned glasses
+        - The effect looks realistic, natural, and professionally fitted
         
-        🔴 FINAL CRITICAL REMINDER 🔴
-        THE GLASSES MUST BE EXACTLY THE SAME AS PROVIDED:
-        - SAME EXACT SHAPE (if rectangular, keep rectangular; if round, keep round)
-        - SAME EXACT COLOR (no color changes whatsoever)
-        - SAME EXACT STYLE (no stylistic modifications)
-        - SAME EXACT FRAME DESIGN (no alterations to frame)
-        - Just position them correctly on the face WITHOUT changing their appearance!
+        🔴 FINAL CRITICAL REMINDERS 🔴
+        1. DETECT AND ADD GLASSES TO ALL FACES (don't miss anyone)
+        2. GLASSES MUST BE PERFECT OVERLAYS (no facial obstruction)
+        3. PRESERVE EXACT GLASSES DESIGN (no modifications)
+        4. MAINTAIN ORIGINAL IMAGE DIMENSIONS (no cropping)
         
-        USE THE EXACT GLASSES FROM THE SECOND IMAGE WITHOUT ANY MODIFICATIONS."""
+        IF YOU MISS ANY FACES, THE OUTPUT WILL BE REJECTED!
+        IF FACIAL FEATURES OBSTRUCT THE GLASSES, THE OUTPUT WILL BE REJECTED!
+        IF YOU CHANGE THE GLASSES DESIGN, THE OUTPUT WILL BE REJECTED!
+        
+        USE THE EXACT GLASSES FROM THE SECOND IMAGE AS PERFECT OVERLAYS ON ALL DETECTED FACES."""
         
         contents.append(genai.types.Part.from_text(text=prompt))
         
