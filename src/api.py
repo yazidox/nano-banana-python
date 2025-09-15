@@ -101,12 +101,19 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
         🔴🔴🔴 GLASSES AS PERFECT OVERLAY - NO OBSTRUCTION 🔴🔴🔴
         ⚠️ CRITICAL: Glasses must appear as a DIGITAL OVERLAY - like copy-pasting them on top ⚠️
         
+        🚨🚨🚨 EXTREMELY IMPORTANT - NO TEMPLE ARMS 🚨🚨🚨
+        ⛔ NEVER ADD TEMPLE ARMS (the left and right arms that go over ears) ⛔
+        • ONLY show the FRONT PART of the glasses (lenses + bridge + front frame)
+        • DO NOT add the side arms that extend toward the ears
+        • DO NOT show any part of the glasses that would go behind the head
+        • The glasses should appear as just the front viewing portion
+        • Think of it as the glasses image cropped to show only the front face-covering part
+        
         🎯 REALISTIC 3D GLASSES POSITIONING - NATURAL FACE CONFORMITY:
         • The glasses must appear to REST NATURALLY on the face following 3D facial contours
         • Glasses should CURVE and BEND naturally around the nose bridge and face shape
         • The bridge should appear to rest ON TOP OF the nose bridge (not floating above it)
         • Lenses should follow the natural curve of the eye sockets and cheekbones
-        • Temple arms should curve naturally around the sides of the head
         • CRITICAL: While conforming to face shape, the glasses design must remain FULLY VISIBLE
         • NO part of the nose should "cut through" or obstruct the glasses frame or lenses
         
@@ -151,7 +158,7 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
            • CENTER the glasses perfectly on each face
            • Each eye should be centered in its respective lens
            • Scale glasses appropriately for each face size
-           • Temple arms should extend toward ears naturally
+           • NO TEMPLE ARMS - only show the front glasses portion (lenses + bridge + front frame)
         
         4. REALISTIC 3D EFFECT - CRITICAL:
            • Glasses must appear to REST NATURALLY on the face with realistic depth
@@ -183,26 +190,29 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
            • The ONLY change is adding glasses to all faces - nothing else
         
         🎯 REALISTIC 3D VISUALIZATION GUIDE:
-        Think of this like real glasses that someone is actually wearing:
-        - The glasses rest naturally on the nose bridge and ears
+        Think of this like the FRONT PART ONLY of real glasses that someone is wearing:
+        - Only the front glasses portion is visible (lenses + bridge + front frame)
+        - NO temple arms or side extensions toward the ears
         - The frame curves and conforms to the 3D shape of the face
         - The bridge makes natural contact with the nose without being obstructed by it
         - Lenses follow the natural curve of the eye area and cheekbones
-        - Temple arms curve naturally around the head shape
         - The glasses cast subtle, realistic shadows on the face
-        - Despite the realistic fit, the complete glasses design remains fully visible
-        - Each face gets its own perfectly fitted, naturally positioned glasses
-        - The effect looks realistic, natural, and professionally fitted
+        - Despite the realistic fit, the complete FRONT glasses design remains fully visible
+        - Each face gets its own perfectly fitted, naturally positioned front glasses
+        - The effect looks like someone wearing glasses but you only see the front part
+        - Think of it as the glasses image with temple arms removed/cropped out
         
         🔴 FINAL CRITICAL REMINDERS 🔴
         1. DETECT AND ADD GLASSES TO ALL FACES (don't miss anyone)
         2. GLASSES MUST BE PERFECT OVERLAYS (no facial obstruction)
         3. PRESERVE EXACT GLASSES DESIGN (no modifications)
         4. MAINTAIN ORIGINAL IMAGE DIMENSIONS (no cropping)
+        5. 🚨 NO TEMPLE ARMS - ONLY FRONT GLASSES PORTION 🚨
         
         IF YOU MISS ANY FACES, THE OUTPUT WILL BE REJECTED!
         IF FACIAL FEATURES OBSTRUCT THE GLASSES, THE OUTPUT WILL BE REJECTED!
         IF YOU CHANGE THE GLASSES DESIGN, THE OUTPUT WILL BE REJECTED!
+        IF YOU ADD TEMPLE ARMS OR SIDE EXTENSIONS, THE OUTPUT WILL BE REJECTED!
         
         USE THE EXACT GLASSES FROM THE SECOND IMAGE AS PERFECT OVERLAYS ON ALL DETECTED FACES."""
         
