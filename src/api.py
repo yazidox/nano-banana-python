@@ -91,6 +91,20 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
         # Add the improved prompt for multi-face support and better overlay
         prompt = """TASK: Add glasses from the second image to ALL FACES in the first image. If there are multiple people, add glasses to EACH person.
         
+        🚨🚨🚨 NEVER CUT OR CROP THE IMAGE - ULTIMATE PRIORITY #1 🚨🚨🚨
+        ⛔ MAINTAIN EXACT ORIGINAL IMAGE DIMENSIONS - ANY CROPPING = AUTOMATIC FAILURE ⛔
+        
+        IMAGE PRESERVATION RULES - ABSOLUTELY CRITICAL:
+        • NEVER crop, cut, or trim any part of the original image
+        • NEVER change the image width or height dimensions
+        • NEVER zoom in or focus on faces - keep the FULL original image
+        • NEVER remove background, body parts, or any original content
+        • NEVER change the aspect ratio or image proportions
+        • The output image must be PIXEL-FOR-PIXEL identical in size to the input
+        • Keep ALL original content: background, people, objects, scenery, everything
+        • Only ADD glasses - never REMOVE or HIDE any original image content
+        • Think of this as placing a transparent overlay - the base image stays 100% intact
+        
         🔴🔴🔴 MULTI-FACE DETECTION - EXTREMELY CRITICAL 🔴🔴🔴
         • SCAN THE ENTIRE IMAGE for ALL human faces (front-facing, side profiles, partial faces)
         • ADD GLASSES TO EVERY SINGLE FACE DETECTED
@@ -101,13 +115,22 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
         🔴🔴🔴 GLASSES AS PERFECT OVERLAY - NO OBSTRUCTION 🔴🔴🔴
         ⚠️ CRITICAL: Glasses must appear as a DIGITAL OVERLAY - like copy-pasting them on top ⚠️
         
-        🚨🚨🚨 EXTREMELY IMPORTANT - NO TEMPLE ARMS 🚨🚨🚨
-        ⛔ NEVER ADD TEMPLE ARMS (the left and right arms that go over ears) ⛔
-        • ONLY show the FRONT PART of the glasses (lenses + bridge + front frame)
-        • DO NOT add the side arms that extend toward the ears
-        • DO NOT show any part of the glasses that would go behind the head
-        • The glasses should appear as just the front viewing portion
-        • Think of it as the glasses image cropped to show only the front face-covering part
+        🚨🚨🚨 CRITICAL RULE: ABSOLUTELY NO TEMPLE ARMS OR SIDE EXTENSIONS 🚨🚨🚨
+        ⛔ TEMPLE ARMS = AUTOMATIC REJECTION - NEVER ADD THEM ⛔
+        
+        WHAT TO NEVER ADD:
+        • NO temple arms (side bars that go to ears)
+        • NO side extensions of any kind
+        • NO parts that would go behind the head or over ears
+        • NO hinges or connection points for temple arms
+        • NO metal or plastic extensions beyond the front frame
+        
+        WHAT TO SHOW ONLY:
+        • FRONT GLASSES PORTION ONLY: lenses + bridge + front frame rim
+        • The glasses should look like they were "cut off" at the sides
+        • Imagine the original glasses image with temple arms completely removed/cropped out
+        • Only the part that sits directly in front of the eyes should be visible
+        • Think: "front-facing glasses view only" - no side profile elements
         
         🎯 REALISTIC 3D GLASSES POSITIONING - NATURAL FACE CONFORMITY:
         • The glasses must appear to REST NATURALLY on the face following 3D facial contours
@@ -120,16 +143,23 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
         🔴🔴🔴 GLASSES PRESERVATION - ULTIMATE PRIORITY 🔴🔴🔴
         ⚠️ NEVER CHANGE THE GLASSES SHAPE OR COLORS - THIS IS ABSOLUTELY CRITICAL! ⚠️
         
-        GLASSES PRESERVATION RULES:
-        • DO NOT CHANGE THE SHAPE OF THE GLASSES - KEEP EXACT ORIGINAL SHAPE
-        • DO NOT ROUND THE GLASSES IF THEY ARE RECTANGULAR
-        • DO NOT MAKE THEM RECTANGULAR IF THEY ARE ROUND
-        • DO NOT ALTER ANY CURVES, ANGLES, OR GEOMETRY
-        • DO NOT CHANGE THE COLOR - KEEP EXACT ORIGINAL COLORS
-        • DO NOT MODIFY THE FRAME THICKNESS
-        • DO NOT ALTER THE LENS TINT OR TRANSPARENCY
-        • USE THE GLASSES EXACTLY AS THEY APPEAR IN THE SECOND IMAGE
-        • The glasses must be IDENTICAL to the input - just positioned on each face
+        🚨 SHAPE PRESERVATION IS THE #1 PRIORITY - FAILURE TO PRESERVE SHAPE WILL RESULT IN REJECTION 🚨
+        
+        GLASSES PRESERVATION RULES - FOLLOW EXACTLY:
+        • PRESERVE THE EXACT ORIGINAL SHAPE - NO MODIFICATIONS WHATSOEVER
+        • If glasses are rectangular/square → KEEP THEM RECTANGULAR/SQUARE
+        • If glasses are round/oval → KEEP THEM ROUND/OVAL
+        • If glasses are cat-eye shaped → KEEP THE EXACT CAT-EYE SHAPE
+        • If glasses have unique geometric patterns → PRESERVE EVERY DETAIL
+        • DO NOT ROUND CORNERS if they are sharp
+        • DO NOT SHARPEN CORNERS if they are rounded
+        • DO NOT ALTER ANY CURVES, ANGLES, OR GEOMETRIC FEATURES
+        • PRESERVE EXACT FRAME THICKNESS - do not make thinner or thicker
+        • PRESERVE EXACT COLORS - no color shifts, brightness changes, or tinting
+        • PRESERVE EXACT LENS TRANSPARENCY/OPACITY
+        • PRESERVE ANY DECORATIVE ELEMENTS, PATTERNS, OR DETAILS
+        • The glasses must be PIXEL-PERFECT IDENTICAL to the input - just positioned on each face
+        • Think of this as COPY-PASTE operation - the glasses design cannot change AT ALL
         
         ⛔ CRITICAL RULE - NEVER ADD EYES ⛔
         • ONLY ADD GLASSES - NOTHING ELSE!
@@ -147,18 +177,25 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
            • For EACH face detected, apply the following positioning rules
         
         2. VERTICAL POSITIONING (TOP TO BOTTOM) - PER FACE:
-           • Position glasses to REST NATURALLY on the nose bridge and face
-           • TOP of glasses frame: Should align with natural eyebrow line
-           • BRIDGE: Should make contact with the nose bridge (upper part) naturally
-           • EYES: Should be visible through the CENTER portion of each lens
-           • BOTTOM of glasses: Should follow natural cheekbone curve
-           • Glasses should appear to be physically resting on the face with realistic depth
+           🎯 CRITICAL: Move glasses 20% HIGHER than typical positioning
+           • Position glasses to sit ABOVE the eyes, not directly on them
+           • TOP of glasses frame: Should be positioned ABOVE the natural eyebrow line
+           • BRIDGE: Should rest on the UPPER part of the nose bridge (higher than normal)
+           • EYES: Should be visible in the LOWER 80% of each lens (not center)
+           • The glasses should appear to "hover" slightly above the natural eye position
+           • BOTTOM of glasses: Should be at or slightly above the natural eye level
+           • Think: "glasses positioned higher on the face" for a more natural look
+           • Glasses should appear to be resting on the upper nose bridge with realistic depth
         
         3. HORIZONTAL POSITIONING (LEFT TO RIGHT) - PER FACE:
-           • CENTER the glasses perfectly on each face
-           • Each eye should be centered in its respective lens
-           • Scale glasses appropriately for each face size
+           • CENTER the glasses PERFECTLY on each face - this is critical for realism
+           • ADJUSTED EYE POSITIONING: Each eye pupil should be in the LOWER portion of its lens
+           • Since glasses are positioned 20% higher, eyes will naturally appear in lower part of lenses
+           • Use the bridge of the nose as the central reference point for alignment
+           • Scale glasses proportionally to face size while maintaining perfect centering
            • NO TEMPLE ARMS - only show the front glasses portion (lenses + bridge + front frame)
+           • The glasses should be perfectly symmetrical on the face
+           • If one eye is slightly higher than the other, adjust glasses angle to match natural face geometry
         
         4. REALISTIC 3D EFFECT - CRITICAL:
            • Glasses must appear to REST NATURALLY on the face with realistic depth
@@ -189,32 +226,68 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
            • Keep ALL background and body parts visible
            • The ONLY change is adding glasses to all faces - nothing else
         
-        🎯 REALISTIC 3D VISUALIZATION GUIDE:
+        🎯 REALISTIC 3D VISUALIZATION GUIDE - CRITICAL FOR SUCCESS:
         Think of this like the FRONT PART ONLY of real glasses that someone is wearing:
+        
+        VISUAL ANALOGY: Imagine looking at someone wearing glasses from directly in front of them:
+        - You see: lenses + bridge + front frame rim (the part covering their eyes)
+        - You DON'T see: temple arms going to their ears (those are behind/to the side)
+        
+        TECHNICAL IMPLEMENTATION:
         - Only the front glasses portion is visible (lenses + bridge + front frame)
-        - NO temple arms or side extensions toward the ears
-        - The frame curves and conforms to the 3D shape of the face
+        - ABSOLUTELY NO temple arms or side extensions toward the ears
+        - The frame curves and conforms to the 3D shape of the face naturally
         - The bridge makes natural contact with the nose without being obstructed by it
         - Lenses follow the natural curve of the eye area and cheekbones
         - The glasses cast subtle, realistic shadows on the face
-        - Despite the realistic fit, the complete FRONT glasses design remains fully visible
+        - Despite the realistic 3D fit, the complete FRONT glasses design remains 100% visible
         - Each face gets its own perfectly fitted, naturally positioned front glasses
-        - The effect looks like someone wearing glasses but you only see the front part
-        - Think of it as the glasses image with temple arms removed/cropped out
+        - The effect looks like someone wearing glasses but you only see the front-facing view
+        - Think: "glasses image with temple arms completely cropped out"
         
-        🔴 FINAL CRITICAL REMINDERS 🔴
-        1. DETECT AND ADD GLASSES TO ALL FACES (don't miss anyone)
-        2. GLASSES MUST BE PERFECT OVERLAYS (no facial obstruction)
-        3. PRESERVE EXACT GLASSES DESIGN (no modifications)
-        4. MAINTAIN ORIGINAL IMAGE DIMENSIONS (no cropping)
-        5. 🚨 NO TEMPLE ARMS - ONLY FRONT GLASSES PORTION 🚨
+        🚨 CRITICAL SHAPE PRESERVATION REMINDER: The glasses shape must remain PIXEL-PERFECT IDENTICAL to the input image - even the slightest modification will result in failure 🚨
         
-        IF YOU MISS ANY FACES, THE OUTPUT WILL BE REJECTED!
-        IF FACIAL FEATURES OBSTRUCT THE GLASSES, THE OUTPUT WILL BE REJECTED!
-        IF YOU CHANGE THE GLASSES DESIGN, THE OUTPUT WILL BE REJECTED!
-        IF YOU ADD TEMPLE ARMS OR SIDE EXTENSIONS, THE OUTPUT WILL BE REJECTED!
+        🔴 FINAL CRITICAL REMINDERS - ABSOLUTE REQUIREMENTS 🔴
+        1. 🎯 GLASSES SHAPE: Must be PIXEL-PERFECT IDENTICAL to input - NO changes allowed
+        2. 🚨 NO TEMPLE ARMS: Only front portion visible - temple arms = automatic failure
+        3. 🎯 EYE POSITIONING: Each pupil must be in LOWER portion of its lens (glasses 20% higher)
+        4. 🔍 DETECT ALL FACES: Scan entire image, add glasses to every single face found
+        5. 💼 PERFECT OVERLAY: Glasses float on face like digital sticker, no obstruction
+        6. 🚨 NEVER CUT IMAGE: Preserve EVERY pixel of original - no cropping/trimming allowed
         
-        USE THE EXACT GLASSES FROM THE SECOND IMAGE AS PERFECT OVERLAYS ON ALL DETECTED FACES."""
+        🚨 AUTOMATIC REJECTION CRITERIA - ANY OF THESE WILL CAUSE FAILURE: 🚨
+        ❌ IF GLASSES SHAPE IS CHANGED IN ANY WAY (rounded corners, altered curves, etc.)
+        ❌ IF TEMPLE ARMS OR SIDE EXTENSIONS ARE ADDED
+        ❌ IF EYES ARE NOT POSITIONED IN LOWER PORTION OF LENSES (glasses must be 20% higher)
+        ❌ IF ANY FACE IN THE IMAGE IS MISSED
+        ❌ IF NOSE OR OTHER FACIAL FEATURES "CUT THROUGH" THE GLASSES
+        ❌ IF GLASSES COLORS OR TRANSPARENCY ARE MODIFIED
+        ❌ IF IMAGE IS CROPPED, TRIMMED, ZOOMED, OR DIMENSIONS CHANGED IN ANY WAY
+        ❌ IF ANY PART OF THE ORIGINAL IMAGE IS CUT OFF OR REMOVED
+        ❌ IF BACKGROUND OR ANY ORIGINAL CONTENT IS HIDDEN OR MISSING
+        
+        🎆 SUCCESS CRITERIA - ALL OF THESE MUST BE TRUE:
+        ✅ Glasses shape is 100% identical to input image
+        ✅ NO temple arms visible - only front glasses portion
+        ✅ Eyes positioned in lower portion of lenses (glasses 20% higher than normal)
+        ✅ All faces in image have glasses applied
+        ✅ Glasses appear as clean digital overlays
+        ✅ Original image dimensions preserved exactly (same width × height)
+        ✅ ALL original image content visible (background, people, objects, everything)
+        ✅ No cropping, trimming, zooming, or cutting of any kind
+        
+        USE THE EXACT GLASSES FROM THE SECOND IMAGE AS PERFECT OVERLAYS ON ALL DETECTED FACES.
+        
+        🔥 TRIPLE CHECK BEFORE SUBMITTING: 🔥
+        1. Are the glasses EXACTLY the same shape as the input? (No rounding, no straightening, no alterations)
+        2. Are there NO temple arms or side extensions visible?
+        3. Are the eyes positioned in the LOWER portion of each lens (glasses 20% higher than normal)?
+        4. Did I find and apply glasses to ALL faces in the image?
+        5. Do the glasses look like clean digital overlays without facial obstruction?
+        6. Is the ENTIRE original image preserved with NO cropping or cutting?
+        7. Are the image dimensions exactly the same as the input?
+        
+        IF ANY ANSWER IS "NO" - DO NOT SUBMIT, FIX THE ISSUE FIRST!"""
         
         contents.append(genai.types.Part.from_text(text=prompt))
         

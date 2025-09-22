@@ -1,6 +1,6 @@
-# Glasses Overlay - Add Glasses to Any Image
+# Glasses Overlay API - Add Glasses to Any Image
 
-This project uses Google's Gemini AI to automatically add glasses to any person in an image from a URL.
+This project provides a FastAPI-based service that uses Google's Gemini AI to automatically add glasses to any person in an image from a URL.
 
 ## Setup
 
@@ -17,43 +17,74 @@ This project uses Google's Gemini AI to automatically add glasses to any person 
 
    Note: The Gemini API key is already configured in the code, no need to set it up!
 
-## Usage
+## Running the API
 
-The script takes an image URL and adds the glasses.png overlay to the person in the image.
-
-### Basic Usage
+Start the API server:
 
 ```bash
-uv run python src/mix_images.py --url "IMAGE_URL_HERE"
+uv run python src/api.py
 ```
 
-### Example with a real image URL
+The API will be available at `http://localhost:8000` with interactive documentation at `http://localhost:8000/docs`.
+
+## API Usage
+
+### Add Glasses Endpoint
+
+**POST** `/add-glasses`
+
+Send a JSON request with an image URL:
+
+```json
+{
+  "image_url": "https://example.com/person.jpg"
+}
+```
+
+**Example using curl:**
 
 ```bash
-# Add glasses to any portrait image
-uv run python src/mix_images.py --url "https://example.com/person.jpg"
+curl -X POST "http://localhost:8000/add-glasses" \
+     -H "Content-Type: application/json" \
+     -d '{"image_url": "https://example.com/person.jpg"}'
 ```
 
-### Custom output directory
+**Response:**
 
-```bash
-uv run python src/mix_images.py --url "IMAGE_URL" --output-dir my_output
+```json
+{
+  "success": true,
+  "message": "Glasses added successfully!",
+  "image_url": "http://localhost:8000/output/with_glasses_1234567890_0.png",
+  "local_path": "output/with_glasses_1234567890_0.png"
+}
 ```
+
+### Health Check
+
+**GET** `/health` - Check if the API is running
+
+**GET** `/` - API information and available endpoints
+
+## Frontend Integration
+
+The API is designed to work seamlessly with frontend applications. See `frontend_example.html` for a complete example of how to integrate with a web frontend.
 
 ## How it works
 
-1. The script downloads the image from the provided URL
-2. Sends both the downloaded image and glasses.png to Gemini AI
-3. Gemini intelligently places the glasses on the person's face
-4. Saves the result in the output directory
+1. The API receives an image URL via POST request
+2. Downloads the image from the provided URL
+3. Sends both the downloaded image and glasses.png to Gemini AI with advanced positioning prompts
+4. Gemini intelligently places glasses on all detected faces with optimal positioning
+5. Returns the processed image URL for immediate use
 
 ## Output
 
-The processed image will be saved in the `output` directory with a filename like:
+Processed images are saved in the `output` directory and served as static files through the API with filenames like:
 - `with_glasses_[timestamp]_0.png`
 
 ## Requirements
 
 - Python 3.10+
-- Internet connection to download images and use the API
+- Internet connection to download images and use the Gemini API
 - (API key is already included in the code)
