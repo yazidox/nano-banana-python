@@ -89,106 +89,28 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
         )
         
         # Enhanced prompt for perfect glasses overlay with maximum eye visibility
-        prompt = """CRITICAL INSTRUCTION: Overlay ONLY the front portion of glasses from Image 2 onto all faces in Image 1.
+        prompt = """
+        OVERLAY THE GLASSES ON THE FACE WITH MAXIMUM EYE VISIBILITY. WITHOUT ADDING ANYTHING ELSE.
+        MAKE SURE TO PUT GLASSES IN THE CORRECT PLACE OF HUMAN GLASSES. IS EYES WE DON4T SEE THEM THEN IT REJECTED AUTOMATICALLY.
+        DONT ADD ANYTHING ELSE.
+        MAKE SURE GLASSES ARE NOT WAY BIGGER THEN THE FACE. NEED TO BE SAME SIZE AS THE FACE.
+        YOU CAN ROTATE THE GLASSES IF NEEDED TO MAKE SURE EYES ARE VISIBLE.
 
-🚨 ABSOLUTE REQUIREMENTS - FAILURE TO FOLLOW = COMPLETE FAILURE:
 
-1. ABSOLUTELY NO TEMPLE BARS/ARMS/SIDE EXTENSIONS - THIS IS CRITICAL
-   - Show ONLY: lenses + nose bridge + front rim (NOTHING ELSE)
-   - NEVER EVER add: temple arms, ear pieces, side bars, hinges, extensions
-   - DO NOT draw lines going to the ears - FORBIDDEN
-   - DO NOT add any parts that weren't in the original glasses image
-   - Even if it looks "incomplete" or "unrealistic", DO NOT add temple arms
-   - The glasses should appear to "float" on the face rather than have temple arms
-   - If you feel tempted to add temple arms for realism - DON'T DO IT
-   - STOP ADDING TEMPLE BARS - IT'S RUINING THE RESULTS
-   - NO SIDE EXTENSIONS MEANS NO SIDE EXTENSIONS - PERIOD
+IMPORTANT: IF EYES ARE NOT VISIBLE THEN IT REJECTED AUTOMATICALLY. make sure eyes are visible. ROTATE THE GLASSES IF NEEDED TO MAKE SURE EYES ARE VISIBLE.
+        NEVER DRAW TEMPLE ARMS.ONLY GLASSES PLEASE NO TEMPLE ARMS EVEN IF LOGIC IS NEEDED, don't add it we want ovelay glass
+        APPLY SAME THING IF THERE IS MORE FACES. ALL FACES NEED TO HAVE GLASSES.
 
-2. EYES MUST ALWAYS BE CRYSTAL CLEAR AND VISIBLE
-   - Eyes MUST be completely unobstructed and clearly visible
-   - NEVER hide, cover, or darken any part of the eyes
-   - Position glasses BELOW the eyebrows, not covering them
-   - Ensure pupils, iris, and entire eye area remain fully visible
-   - If glasses would cover eyes, position them lower on the nose
-   - Eyes should look exactly as they do in the original image
+        NOTE: NEVER DRAW SOMETHING ELSE THAN GLASSES.
 
-3. NO VISUAL EFFECTS ON GLASSES
-   - Keep glasses EXACTLY as they appear in Image 2
-   - NO shadows, reflections, or transparency effects
-   - NO glass/lens effects, tinting, or opacity changes
-   - NO lighting effects, glare, or shine on lenses
-   - Glasses should appear flat and identical to the source image
-   - Maintain original colors, patterns, and textures perfectly
-
-4. PERFECT POSITIONING - GLASSES ALIGNED WITH EYES (CRITICAL)
-   - PRIMARY RULE: Position glasses based on EYE LOCATION, not nose location
-   - Each lens must be centered ABOVE the corresponding eye
-   - Glasses bridge should connect the two lenses above the nose bridge
-   - Eyes must be positioned in the CENTER of each lens area
-   - If positioning conflicts: PRIORITIZE eye alignment over nose placement
-   - Glasses must sit ON TOP of the nose bridge (not inside or middle)
-   - Position glasses as an OVERLAY on the nose surface
-   - The nose should be visible UNDER the glasses bridge
-   - Glasses appear to rest ON the nose, not embedded IN the nose
-   - Follow face perspective (tilt, angle, rotation)
-   - No floating or misaligned glasses
-   - Maintain original image dimensions
-   - FAILURE CONDITION: If eyes are not properly centered in lenses = FAIL
-
-5. PRESERVE ORIGINAL IMAGES & NO NEW ELEMENTS
-   - Keep exact glasses appearance from Image 2 (no modifications)
-   - NEVER add elements that don't exist in the original glasses image
-   - If the original glasses don't have temple arms, DON'T ADD THEM
-   - Only use the exact elements visible in the glasses source image
-   - Do not crop, resize, or modify the base image
-   - Process ALL faces in the image
-   - Background and all other elements remain untouched
-
-IMPLEMENTATION PRIORITY:
-1. Extract ONLY the front view of glasses (no side parts, NO TEMPLE ARMS)
-2. LOCATE BOTH EYES in the image first
-3. Position each lens to be centered ABOVE each eye
-4. Align glasses bridge to connect lenses above nose bridge
-5. Scale appropriately so eyes are centered in lens areas
-6. Apply perspective transformation while keeping glasses flat/opaque
-7. Ensure MAXIMUM eye visibility - eyes centered in lenses
-8. Keep glasses appearance 100% identical to source image
-9. FINAL CHECK: Verify absolutely NO lines extend toward ears
-
-CRITICAL SUCCESS CRITERIA:
-- Every eye in the image remains completely visible and clear
-- Each eye is CENTERED within its corresponding lens area
-- Glasses are positioned based on EYE LOCATION, not just nose
-- Glasses look exactly like the source image (no effects)
-- ZERO temple arms, side extensions, or ear pieces - NONE WHATSOEVER
-- No lines or elements going toward the ears
-- Natural positioning on nose bridge with eye-based alignment
-- Glasses appear as front-view only (like a sticker)
-
-TEMPLE ARM CHECK: Before finishing, verify NO lines extend from glasses toward ears.
-
-REMEMBER: 
-1. Eye visibility is the absolute top priority
-2. Position glasses based on EYE LOCATIONS - find eyes first, then position lenses
-3. Each eye must be CENTERED in its lens area
-4. NEVER add temple arms even if it looks incomplete
-5. Position glasses ON TOP of nose as overlay, not embedded in nose
-6. The glasses should look like a "front view cutout" placed on the face
-7. STOP ADDING TEMPLE BARS - THEY ARE FORBIDDEN
-
-POSITIONING WORKFLOW:
-Step 1: Identify both eyes in the face
-Step 2: Center each lens over each eye
-Step 3: Connect lenses with bridge over nose
-Step 4: Verify eyes are centered in lens areas
-
-FINAL TEMPLE BAR CHECK: Before completing, scan the entire image for ANY lines extending from glasses toward ears. If found, REMOVE THEM."""
+        The glasses should never be deformed, keep same shape always
+        """
         
         contents.append(genai.types.Part.from_text(text=prompt))
         
         generate_content_config = types.GenerateContentConfig(
             response_modalities=["IMAGE"],
-            temperature=0.7,  # Low temperature for more consistent results
+            temperature=0.5,  # Low temperature for more consistent results
             top_p=0.1,       # Reduce randomness in token selection
         )
         
