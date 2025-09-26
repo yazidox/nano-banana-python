@@ -28,7 +28,7 @@ app.add_middleware(
 app.mount("/output", StaticFiles(directory="output"), name="output")
 
 # Get configuration from environment variables with defaults
-REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN", "r8_2xg58IatzbTxr7gVKcouPC1S7XcefKG2IE9Wo")
+REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
 PORT = int(os.getenv("PORT", "8000"))
 HOST = os.getenv("HOST", "0.0.0.0")
 
