@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano-Banana Glasses Overlay - Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="url"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        input[type="url"]:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .result.success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .result.error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .result.loading {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .result img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #0c5460;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .example-urls {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .example-urls h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        .example-url {
+            background-color: white;
+            padding: 8px;
+            border-radius: 4px;
+            margin: 5px 0;
+            font-family: monospace;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid #dee2e6;
+        }
+        
+        .example-url:hover {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍌 Nano-Banana Glasses Overlay</h1>
+        <p class="subtitle">Add glasses to any photo using Google's nano-banana model</p>
+        
+        <form id="glassesForm">
+            <div class="form-group">
+                <label for="imageUrl">Image URL:</label>
+                <input type="url" id="imageUrl" name="imageUrl" 
+                       placeholder="https://example.com/photo.jpg" required>
+            </div>
+            
+            <button type="submit" class="btn" id="submitBtn">
+                Add Glasses with Nano-Banana
+            </button>
+        </form>
+        
+        <div class="example-urls">
+            <h3>Example Image URLs (click to use):</h3>
+            <div class="example-url" onclick="setImageUrl('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500')">
+                https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500
+            </div>
+            <div class="example-url" onclick="setImageUrl('https://images.unsplash.com/photo-1494790108755-2616b612b786?w=500')">
+                https://images.unsplash.com/photo-1494790108755-2616b612b786?w=500
+            </div>
+            <div class="example-url" onclick="setImageUrl('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500')">
+                https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500
+            </div>
+        </div>
+        
+        <div id="result" class="result">
+            <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8000'; // Change this to your API URL
+        
+        function setImageUrl(url) {
+            document.getElementById('imageUrl').value = url;
+        }
+        
+        document.getElementById('glassesForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const imageUrl = document.getElementById('imageUrl').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const result = document.getElementById('result');
+            const resultContent = document.getElementById('resultContent');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            result.className = 'result loading';
+            result.style.display = 'block';
+            resultContent.innerHTML = `
+                <div class="loading-spinner"></div>
+                Processing image with nano-banana model... This may take up to 2 minutes.
+            `;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/add-glasses`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        image_url: imageUrl
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    result.className = 'result success';
+                    resultContent.innerHTML = `
+                        <h3>✅ Success!</h3>
+                        <p>${data.message}</p>
+                        <p><strong>Generated Image:</strong></p>
+                        <img src="${data.image_url}" alt="Image with glasses" />
+                        <p><small>Image URL: <a href="${data.image_url}" target="_blank">${data.image_url}</a></small></p>
+                    `;
+                } else {
+                    result.className = 'result error';
+                    resultContent.innerHTML = `
+                        <h3>❌ Error</h3>
+                        <p>${data.message || 'Failed to process image'}</p>
+                    `;
+                }
+            } catch (error) {
+                result.className = 'result error';
+                resultContent.innerHTML = `
+                    <h3>❌ Network Error</h3>
+                    <p>Failed to connect to the API. Make sure the server is running.</p>
+                    <p><small>Error: ${error.message}</small></p>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
