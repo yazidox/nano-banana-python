@@ -8,6 +8,10 @@ import time
 import requests
 import uvicorn
 import replicate
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI(title="Glasses Overlay API", version="1.0.0")
@@ -64,9 +68,8 @@ def add_glasses_to_image(image_url: str, output_dir: str = "output"):
     if not REPLICATE_API_TOKEN:
         raise Exception("REPLICATE_API_TOKEN environment variable is required")
     
-    # Set the API token as environment variable for replicate
-    import os
-    os.environ["REPLICATE_API_TOKEN"] = REPLICATE_API_TOKEN
+    # Initialize Replicate client with the token
+    client = replicate.Client(api_token=REPLICATE_API_TOKEN.strip())
     
     try:
         print(f"Adding glasses with nano-banana model: {image_url}")
@@ -98,7 +101,7 @@ If eyes exist, keep them visible.
 If eyes don’t exist, just place glasses naturally, never draw eyes."""
         
         # Use google/nano-banana model
-        output = replicate.run(
+        output = client.run(
             "google/nano-banana",
             input={
                 "prompt": prompt,
@@ -205,7 +208,7 @@ if __name__ == "__main__":
     print(f"Port: {PORT}, Host: {HOST}")
     print("Using nano-banana model for precise glasses overlay")
     if REPLICATE_API_TOKEN:
-        print("✓ Replicate API token configured")
+        print(f"✓ Replicate API token configured (starts with: {REPLICATE_API_TOKEN[:10]}...)")
     else:
         print("⚠ Replicate API token not set - /add-glasses endpoint will require REPLICATE_API_TOKEN")
     uvicorn.run(app, host=HOST, port=PORT)
